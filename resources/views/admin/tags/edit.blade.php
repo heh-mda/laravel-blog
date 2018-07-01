@@ -33,8 +33,8 @@
     <div class="box-footer">
         <button class="btn btn-warning pull-right">Изменить</button>
     </div>
-    <!-- /.box-footer-->
     {{Form::close()}}
+    <!-- /.box-footer-->
     </div>
     <!-- /.box -->
 

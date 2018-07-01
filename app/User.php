@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use \Storage;
 
 class User extends Authenticatable
 {
@@ -21,7 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email'
     ];
 
     /**
@@ -55,13 +56,14 @@ class User extends Authenticatable
 
     public function edit($fields)
     {
-        $user->fill($fields);
-        $user->password = bcrypt($fields['password']);
+        $user->fill($fields);       
         $user->save();
     }
 
     public function remove()
     {
+        $this->removeAvatar();
+
         $this->delete();
     }
 
@@ -70,21 +72,22 @@ class User extends Authenticatable
         if($image == null) {
             return;
         }
+        
+        $this->removeAvatar();
 
-        Storage::delete('uploads/' . $this->image);
         $filename = str_random(10) . '.' . $image->extension();
-        $image->saveAs('uploads', $filename);
-        $this->image = $filename;
+        $image->storeAs('uploads', $filename);
+        $this->avatar = $filename;
         $this->save();
     }
 
     public function getAvatar()
     {
-        if($this->image == null) {
+        if($this->avatar == null) {
             return 'img/no_avatar.png';
         }
 
-        return '/uploads/' . $this->image;
+        return '/uploads/' . $this->avatar;
     }
 
     public function makeNormal()
@@ -127,5 +130,20 @@ class User extends Authenticatable
         }
 
         return $this->ban();
+    }
+
+    public function generatePassword($password)
+    {
+        if($password != null) {
+            $user->password = bcrypt($fields['password']);
+            $this->save();
+        }
+    }
+
+    public function removeAvatar()
+    {
+        if($this->avatar != null) {
+            Storage::delete('uploads/' . $this->avatar);
+        }        
     }
 }
