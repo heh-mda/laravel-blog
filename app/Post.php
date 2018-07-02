@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Support\Carbon;
 
 class Post extends Model
 {
@@ -17,17 +18,17 @@ class Post extends Model
     const IS_FEATURED = 1;
 
     protected $fillable = [
-        'title', 'content'
+        'title', 'content', 'date', 'userID'
     ];
 
     public function category()
     {
-        return $this->hasOne(Category::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function author()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function tags()
@@ -59,6 +60,8 @@ class Post extends Model
         $post = new self;
         $post->fill($fields);
         $post->save();
+
+        return $post;
     }
 
     public function edit($fields)
@@ -69,7 +72,7 @@ class Post extends Model
 
     public function remove()
     {
-        Storage::delete('uploads/' . $this->image);
+        $this->removeImage();
         $this->delete();
     }
 
@@ -79,11 +82,19 @@ class Post extends Model
             return;
         }
 
-        Storage::delete('uploads/' . $this->image);
+        $this->removeImage();
+
         $filename = str_random(10) . '.' . $image->extension();
-        $image->saveAs('uploads', $filename);
+        $image->storeAs('uploads', $filename);
         $this->image = $filename;
         $this->save();
+    }
+
+    public function removeImage()
+    {
+        if($this->image != null) {
+            Storage::delete('uploads/' . $this->image);
+        }
     }
 
     public function getImage()
@@ -101,7 +112,7 @@ class Post extends Model
             return;
         }
 
-        $this->categoryID = $id;
+        $this->category_id = $id;
         $this->save();
     }
 
@@ -137,13 +148,13 @@ class Post extends Model
 
     public function setStandard()
     {
-        $this->isFeatured = Post::IS_STANDARD;
+        $this->is_featured = Post::IS_STANDARD;
         $this->save();
     }
 
     public function setFeatured()
     {
-        $this->isFeatured = Post::IS_FEATURED;
+        $this->is_featured = Post::IS_FEATURED;
         $this->save();
     }
 
@@ -154,5 +165,30 @@ class Post extends Model
         }
 
         return $this->setFeatured();
+    }
+
+    public function setDateAttribute($value)
+    {
+        $date = Carbon::createFromFormat('d/m/y', $value)->format('Y-m-d');
+        $this->attributes['date'] = $date;
+    }
+
+    public function getCategoryTitle()
+    {
+        return ($this->category != null) ? $this->category->title : 'Нет категории';
+    }
+
+    public function getTagsTitles()
+    {
+        return (!$this->tags->isEmpty())
+            ?   implode(', ', $this->tags->pluck('title')->all())
+            :   'Нет тегов';
+    }
+
+    public function getDateAttribute($value)
+    {
+        $date = Carbon::createFromFormat('Y-m-d', $value)->format('d/m/y');
+       
+        return $date;
     }    
 }

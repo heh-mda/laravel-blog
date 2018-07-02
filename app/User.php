@@ -135,7 +135,7 @@ class User extends Authenticatable
     public function generatePassword($password)
     {
         if($password != null) {
-            $user->password = bcrypt($fields['password']);
+            $this->password = bcrypt($password);
             $this->save();
         }
     }
