@@ -16,11 +16,9 @@
                     </div>
                     <div class="post-content">
                         <header class="entry-header text-center text-uppercase">
-                            <h6><a href="#"> {{$post->category->title}}</a></h6>
+                            @include('partials._category')
 
                             <h1 class="entry-title"><a href="{{route('post.show', $post->slug)}}">{{$post->title}}</a></h1>
-
-
                         </header>
                         <div class="entry-content">
                             <p>{!!$post->description!!}
@@ -64,7 +62,7 @@
                         <div class="popular-post">
 
 
-                            <a href="#" class="popular-img"><img src="assets/images/p1.jpg" alt="">
+                            <a href="#" class="popular-img"><img src="/images/p1.jpg" alt="">
 
                                 <div class="p-overlay"></div>
                             </a>
@@ -77,7 +75,7 @@
                         </div>
                         <div class="popular-post">
 
-                            <a href="#" class="popular-img"><img src="assets/images/p1.jpg" alt="">
+                            <a href="#" class="popular-img"><img src="/images/p1.jpg" alt="">
 
                                 <div class="p-overlay"></div>
                             </a>
@@ -90,7 +88,7 @@
                         <div class="popular-post">
 
 
-                            <a href="#" class="popular-img"><img src="assets/images/p1.jpg" alt="">
+                            <a href="#" class="popular-img"><img src="/images/p1.jpg" alt="">
 
                                 <div class="p-overlay"></div>
                             </a>
@@ -107,7 +105,7 @@
                         <div id="widget-feature" class="owl-carousel">
                             <div class="item">
                                 <div class="feature-content">
-                                    <img src="assets/images/p1.jpg" alt="">
+                                    <img src="/images/p1.jpg" alt="">
 
                                     <a href="#" class="overlay-text text-center">
                                         <h5 class="text-uppercase">Home is peaceful</h5>
@@ -118,7 +116,7 @@
                             </div>
                             <div class="item">
                                 <div class="feature-content">
-                                    <img src="assets/images/p2.jpg" alt="">
+                                    <img src="/images/p2.jpg" alt="">
 
                                     <a href="#" class="overlay-text text-center">
                                         <h5 class="text-uppercase">Home is peaceful</h5>
@@ -129,7 +127,7 @@
                             </div>
                             <div class="item">
                                 <div class="feature-content">
-                                    <img src="assets/images/p3.jpg" alt="">
+                                    <img src="/images/p3.jpg" alt="">
 
                                     <a href="#" class="overlay-text text-center">
                                         <h5 class="text-uppercase">Home is peaceful</h5>
@@ -148,7 +146,7 @@
 
                             <div class="media">
                                 <div class="media-left">
-                                    <a href="#" class="popular-img"><img src="assets/images/r-p.jpg" alt="">
+                                    <a href="#" class="popular-img"><img src="/images/r-p.jpg" alt="">
                                         <div class="p-overlay"></div>
                                     </a>
                                 </div>
@@ -163,7 +161,7 @@
 
                             <div class="media">
                                 <div class="media-left">
-                                    <a href="#" class="popular-img"><img src="assets/images/r-p.jpg" alt="">
+                                    <a href="#" class="popular-img"><img src="/images/r-p.jpg" alt="">
                                         <div class="p-overlay"></div>
                                     </a>
                                 </div>
@@ -178,7 +176,7 @@
 
                             <div class="media">
                                 <div class="media-left">
-                                    <a href="#" class="popular-img"><img src="assets/images/r-p.jpg" alt="">
+                                    <a href="#" class="popular-img"><img src="/images/r-p.jpg" alt="">
                                         <div class="p-overlay"></div>
                                     </a>
                                 </div>
@@ -193,7 +191,7 @@
 
                             <div class="media">
                                 <div class="media-left">
-                                    <a href="#" class="popular-img"><img src="assets/images/r-p.jpg" alt="">
+                                    <a href="#" class="popular-img"><img src="/images/r-p.jpg" alt="">
                                         <div class="p-overlay"></div>
                                     </a>
                                 </div>
