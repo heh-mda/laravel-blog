@@ -16,7 +16,19 @@ Route::get('/post/{slug}', 'HomeController@show')->name('post.show');
 Route::get('/tag/{slug}', 'HomeController@tag')->name('tag.show');
 Route::get('/category/{slug}', 'HomeController@category')->name('category.show');
 
-Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function(){
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/logout', 'AuthController@logout');
+});
+
+Route::group(['middleware' => 'guest'], function()
+{
+    Route::get('/register', 'AuthController@registerForm');
+    Route::post('/register', 'AuthController@register');
+    Route::get('/login', 'AuthController@loginForm');
+    Route::post('/login', 'AuthController@login');
+});
+
+Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'middleware' => 'admin'], function(){
     Route::get('/', 'DashboardController@index');
     Route::resource('/categories', 'CategoriesController');
     Route::resource('/tags', 'TagsController');
