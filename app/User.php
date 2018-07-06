@@ -56,8 +56,8 @@ class User extends Authenticatable
 
     public function edit($fields)
     {
-        $user->fill($fields);       
-        $user->save();
+        $this->fill($fields);       
+        $this->save();
     }
 
     public function remove()

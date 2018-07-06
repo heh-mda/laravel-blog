@@ -12,19 +12,22 @@
 */
 
 Route::get('/', 'HomeController@index');
+
 Route::get('/post/{slug}', 'HomeController@show')->name('post.show');
 Route::get('/tag/{slug}', 'HomeController@tag')->name('tag.show');
 Route::get('/category/{slug}', 'HomeController@category')->name('category.show');
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/logout', 'AuthController@logout');
+    Route::get('/profile', 'ProfileController@index');
+    Route::post('/profile', 'ProfileController@store');
 });
 
 Route::group(['middleware' => 'guest'], function()
 {
     Route::get('/register', 'AuthController@registerForm');
     Route::post('/register', 'AuthController@register');
-    Route::get('/login', 'AuthController@loginForm');
+    Route::get('/login', 'AuthController@loginForm')->name('login');
     Route::post('/login', 'AuthController@login');
 });
 
