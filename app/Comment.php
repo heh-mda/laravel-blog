@@ -11,12 +11,12 @@ class Comment extends Model
 
     public function author()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function post()
     {
-        return $this->hasOne(Post::class);
+        return $this->belongsTo(Post::class);
     }
 
     public function disallow()
@@ -31,7 +31,7 @@ class Comment extends Model
         $this->save();
     }
 
-    public function toggleStatus($value)
+    public function toggleStatus()
     {
         if($this->status == 0) {
             return $this->allow();

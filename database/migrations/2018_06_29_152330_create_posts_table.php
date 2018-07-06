@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
             $table->string('slug');
             $table->text('content');
             $table->integer('category_id')->nullable();
-            $table->integer('user_id')->nullable();
+            $table->integer('user_id');
             $table->integer('views')->default(0);
             $table->integer('status')->default(0);
             $table->integer('is_featured')->default(0);

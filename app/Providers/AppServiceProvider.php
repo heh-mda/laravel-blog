@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Schema;
 
 use App\Post;
 use App\Category;
+use App\Comment;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +25,10 @@ class AppServiceProvider extends ServiceProvider
             $view->with('featuredPosts', Post::getFeaturedPosts());
             $view->with('recentPosts', Post::getRecentPosts());
             $view->with('categories', Category::all());
+        });
+
+        view()->composer('admin._sidebar', function($view){
+            $view->with('newCommentsCount', Comment::where('status', 0)->count());
         });
     }
 
