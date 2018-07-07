@@ -75,7 +75,11 @@
     <!-- /.container-fluid -->
 </nav>
 
-
+@if(session('status'))
+<div class="alert alert-success">
+    {{session('status')}}
+</div>
+@endif
 <!--main content start-->
 @yield('content')
 <!-- end main content-->
