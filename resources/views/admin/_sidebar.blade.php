@@ -1,7 +1,7 @@
 <ul class="sidebar-menu">
     <li class="header">MAIN NAVIGATION</li>
     <li class="treeview">
-      <a href="#">
+      <a href="/admin">
         <i class="fa fa-dashboard"></i> <span>Админ-панель</span>
       </a>
     </li>
