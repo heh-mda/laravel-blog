@@ -3,7 +3,6 @@
         
         <aside class="widget news-letter">
             <h3 class="widget-title text-uppercase text-center">Get Newsletter</h3>
-            @include('admin.errors')
             <form action="/subscribe" method="POST">
                 {{csrf_field()}}
                 <input type="text" placeholder="Your email address" name="email">

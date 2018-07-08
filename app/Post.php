@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class Post extends Model
 {
@@ -18,7 +19,7 @@ class Post extends Model
     const IS_FEATURED = 1;
 
     protected $fillable = [
-        'title', 'content', 'date', 'userID', 'description'
+        'title', 'content', 'date', 'description'
     ];
 
     public function category()
@@ -64,6 +65,7 @@ class Post extends Model
     {
         $post = new self;
         $post->fill($fields);
+        $post->user_id = Auth::user()->id;
         $post->save();
 
         return $post;

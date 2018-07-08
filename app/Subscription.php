@@ -10,7 +10,6 @@ class Subscription extends Model
     {
         $sub = new self;
         $sub->email = $email;
-        $sub->token = str_random(100);
         $sub->save();
 
         return $sub;
@@ -19,5 +18,17 @@ class Subscription extends Model
     public function remove()
     {
         $this->delete();
+    }
+
+    public function generateToken()
+    {
+        $this->token = str_random(100);
+        $this->save();
+    }
+
+    public function removeToken()
+    {
+        $this->token = null;
+        $this->save();
     }
 }

@@ -8,12 +8,6 @@
 
                 <div class="leave-comment mr0"><!--leave comment-->
                     <h3 class="text-uppercase">Login</h3>
-                    @if(session('status'))
-                        <div class="alert alert-danger">
-                            {{session('status')}}                        
-                        </div>
-                    @endif
-                    @include('admin.errors')
                     <br>
                     <form class="form-horizontal contact-form" role="form" method="post" action="/login">
                         {{csrf_field()}}
