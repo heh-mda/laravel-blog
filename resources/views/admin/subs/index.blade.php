@@ -50,6 +50,7 @@
                         {{Form::close()}}
                     </a></td>
                 </tr>
+                @endforeach
                 </tbody>
                 </tfoot>
               </table>
